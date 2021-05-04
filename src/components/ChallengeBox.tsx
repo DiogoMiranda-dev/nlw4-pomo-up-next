@@ -1,15 +1,14 @@
-import { useState, useContext } from 'react';
-import { ChallengeContext } from '../contexts/ChallengesContext';
-import { CountdownContext } from '../contexts/CountdownContext';
+import { useChallenges } from "../hooks/useChallenges";
+import { useCountdown } from "../hooks/useCountdown";
+
 import styles from '../styles/components/ChallengeBox.module.css';
+
 export function ChallengeBox() {
-  const { activeChallenge, resetChallenge, completedChallenge } = useContext(
-    ChallengeContext
-  );
-  const { resetCountdown } = useContext(CountdownContext);
+  const { activeChallenge, completeChallenge, resetChallenge } = useChallenges();
+  const { resetCountdown } = useCountdown();
 
   function handleChallengeSucceeded() {
-    completedChallenge();
+    completeChallenge();
     resetCountdown();
   }
 
@@ -19,25 +18,30 @@ export function ChallengeBox() {
   }
 
   return (
-    <div className={styles.challengeBoxContainer}>
-      {activeChallenge ? (
+    <div className={styles.challengeContainer}>
+      { activeChallenge ? (
         <div className={styles.challengeActive}>
-          <header>Ganha {activeChallenge.amount} px</header>
+          <header>Ganhe {activeChallenge.amount} xp</header>
+
           <main>
-            <img src={`icons/${activeChallenge.type}.svg`} alt="body" />
+            {activeChallenge.type === 'body' 
+              ? <img src="/icons/body.svg" /> 
+              : <img src="/icons/eye.svg" />
+            }
             <strong>Novo desafio</strong>
             <p>{activeChallenge.description}</p>
           </main>
+
           <footer>
-            <button
-              type="button"
+            <button 
+              type="button" 
               className={styles.challengeFailedButton}
               onClick={handleChallengeFailed}
             >
               Falhei
             </button>
-            <button
-              type="button"
+            <button 
+              type="button" 
               className={styles.challengeSucceededButton}
               onClick={handleChallengeSucceeded}
             >
@@ -47,13 +51,13 @@ export function ChallengeBox() {
         </div>
       ) : (
         <div className={styles.challengeNotActive}>
-          <strong>Finalize um clico para receber um desafio.</strong>
+          <strong>Finalize um ciclo para receber um desafio</strong>
           <p>
-            <img src="icons/level-up.svg" alt="level up" />
-            Avance de level completando desafios.
+            <img src="icons/level-up.svg" alt="Level up" />
+            Avance de level completando os desafios.
           </p>
         </div>
-      )}
+      ) }
     </div>
   );
 }
