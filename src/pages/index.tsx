@@ -1,61 +1,80 @@
-import Head from 'next/head'
-
-import { ChallengeBox } from '../components/ChallengeBox';
-import { ExperienceBar } from '../components/ExperienceBar';
-import { Profile } from '../components/Profile';
-import { Countdown } from '../components/Countdown';
-import { CompletedChallenges } from '../components/CompletedChallenges';
-
-import { ChallengesProvider } from '../contexts/ChallengesContext';
-import { CountdownProvider } from '../contexts/CountdownContext';
-
-import styles from '../styles/pages/Home.module.css'
 import { GetServerSideProps } from 'next';
+import Router from 'next/router';
+import Head  from 'next/head'
+import React, { useState } from 'react'
+import { FiGithub, FiMoon, FiSun } from "react-icons/fi";
 
-interface HomeProps {
-  level: number;
-  currentExperience: number;
-  challengesCompleted: number;
-}
+import Input from '../components/Input';
 
-export default function Home({ level, currentExperience, challengesCompleted}: HomeProps) {
+import { useTheme } from '../contexts/theme';
+import { Container, LeftSide, RightSide, TitleContainer } from '../styles/pages'
+
+const Index: React.FC = () => {
+  const {theme, ToggleTheme} = useTheme();
+  const [username, setUsername]= useState('');
+
+  function handleClick(){
+    ToggleTheme()
+    new Audio(theme.title === 'dark' ? '/sounds/turn-off.mp3' : '/sounds/turn-on.mp3').play()
+  }
+
+  async function handleUsername(e){
+    e.preventDefault();
+    Router.push('/home')
+  }
+
   return (
-    <ChallengesProvider
-      level={level} 
-      currentExperience={currentExperience} 
-      challengesCompleted={challengesCompleted}
-    >
-      <CountdownProvider>
-        <main className={styles.container}>
-          <Head>
-            <title>pomo.up | Início</title>
-          </Head> 
+    <Container>
+      <Head>
+        <title>pomo.up | Login</title>
+      </Head>
+      <section>
+        <LeftSide>
+          <button type="button" onClick={handleClick}>
+            {theme.title === 'light' ? <FiMoon size={30} /> : <FiSun size={30} />}
+          </button>
+        </LeftSide>
+        <RightSide>
+          <img src='white-logo-full.svg' alt="Logo"/>
 
-          <ExperienceBar />
+          <div>
+            <strong>Bem-vindo</strong>
 
-          <section>
-            <div className={styles.cycleContainer}>
-              <Profile />
-              <CompletedChallenges />
-              <Countdown />
-            </div>
+            <TitleContainer>
+              <FiGithub size={55} />
+              <span>Faça login com seu Github para começar</span>
+            </TitleContainer>
 
-            <ChallengeBox />
-          </section>
-        </main>
-      </CountdownProvider>
-    </ChallengesProvider>
+            <form onSubmit={handleUsername}>
+              <Input 
+                placeholder="Digite seu username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </form>
+          </div>
+        </RightSide>
+      </section>
+    </Container>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const { level, currentExperience, challengesCompleted } = req.cookies;
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+/*   const {user} =  await ctx.req.cookies;
 
-  return {
-    props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      challengesCompleted: Number(challengesCompleted),
+  if (user) {
+    if(typeof window === 'undefined'){
+      ctx.res.writeHead(302, { Location: '/home' })
+      ctx.res.end()
+    }else{
+      Router.push('/home')
     }
-  }
-};
+    return { props: {} }
+    return { props: {user} }
+  }else{
+    return { props: {} }
+  }; */
+  return { props: {} }
+}
+
+export default Index;

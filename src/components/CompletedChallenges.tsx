@@ -1,14 +1,14 @@
-import { useChallenges } from "../hooks/useChallenges";
+import { useProvider } from '../contexts/ChallengesContext'
+import { Container } from '../styles/components/CompletedChallenges'
 
-import styles from '../styles/components/CompletedChallenges.module.css';
+export const CompletedChallenges: React.FC = () => {
 
-export function CompletedChallenges() {
-  const { challengesCompleted } = useChallenges();
+  const { challengesCompleted } = useProvider();
 
   return (
-    <div className={styles.completedChallenges}>
-      <span>Desafios completos</span>
+    <Container>
+      <span>Desafios Completos</span>
       <span>{challengesCompleted}</span>
-    </div>
-  );
+    </Container>
+  )
 }

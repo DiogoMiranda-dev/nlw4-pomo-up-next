@@ -1,21 +1,24 @@
-import { useChallenges } from '../hooks/useChallenges';
-import styles from '../styles/components/LevelUpModal.module.css'
+import { motion } from "framer-motion"
 
-export function LevelUpModal() {
-  const { level, closeLevelUpModal } = useChallenges();
+import { useProvider } from '../contexts/ChallengesContext';
+import { Overlay, Container } from '../styles/components/LevelUpModal'
+
+export default function LevelUpModal()  {
+  const { level, closeLevelUpModal } = useProvider();
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.content}>
-        <header>{level}</header>
+    <Overlay>
+      <motion.div animate={{ scale: [ 0.8, 1.1, 1 ]}} transition={{ duration: 0.9 }} >
+        <Container>
+          <header>{level}</header>
+          <strong>Parabéns</strong>
+          <p>Você alcançou um novo level.</p>
 
-        <strong>Parabéns</strong>
-        <p>Você alcançou um novo level.</p>
-
-        <button type="button" onClick={closeLevelUpModal}>
-          <img src="/icons/close.svg" />
-        </button>
-      </div>
-    </div>
-  );
+          <button type="button" onClick={closeLevelUpModal}>
+            <img src="/icons/close.svg" alt="Fechar modal"/>
+          </button>
+        </Container>
+      </motion.div>
+    </Overlay>
+  )
 }

@@ -1,24 +1,26 @@
-import { useChallenges } from '../hooks/useChallenges';
-import styles from '../styles/components/ExperienceBar.module.css';
+import React from 'react'
+import { motion } from "framer-motion"
 
-export function ExperienceBar() {
-  const { currentExperience, experienceToNextLevel } = useChallenges();
+import { useProvider } from '../contexts/ChallengesContext'
+
+import { Container } from '../styles/components/ExperienceBar'
+
+export const ExperienceBar: React.FC = () => {
+  const { currentExperience, experienceToNextLevel } = useProvider();
 
   const percentToNextLevel = Math.round(currentExperience * 100) / experienceToNextLevel;
 
   return (
-    <header className={styles.experienceBar}>
+    <Container>
       <span>0 xp</span>
       <div>
-        <div style={{ width: `${percentToNextLevel}%` }}/>
+        <motion.div 
+          animate={{ width: `${percentToNextLevel}%` }}
+        />
 
-        { currentExperience > 0 && (
-          <span className={styles.currentExperience} style={{ left: `${percentToNextLevel}%` }}>
-            {currentExperience} xp
-          </span>
-        ) }
+        <motion.span animate={{ left: `${percentToNextLevel}%` }} >{currentExperience} xp</motion.span>
       </div>
       <span>{experienceToNextLevel} xp</span>
-    </header>
-  );
+    </Container>
+  )
 }
