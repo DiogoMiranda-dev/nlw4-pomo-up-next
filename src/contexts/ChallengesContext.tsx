@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import challenges from '../../challenges.json';
 import Cookies from 'js-cookie';
 import LevelUpModal from '../components/LevelUpModal';
@@ -130,9 +130,3 @@ export const ChallengesProvider: React.FC = ({ children, ...rest }: ChallengesPr
     </ChallengesContext.Provider>
   );
 };
-
-export function useProvider(): ProviderContextData {
-  const context = useContext(ChallengesContext);
-
-  return context;
-}

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Container } from '../styles/components/Profile';
 import { FiLogOut } from 'react-icons/fi';
-import { useProvider } from '../contexts/ChallengesContext';
+import { useChallenges } from '../hooks/useChallenges';
 
 interface IUserGithub {
   name: string;
@@ -10,7 +10,7 @@ interface IUserGithub {
 }
 
 export default function Profile(props: IUserGithub) {
-  const { level } = useProvider();
+  const { level } = useChallenges();
   const route = useRouter();
 
   async function handleSignout() {

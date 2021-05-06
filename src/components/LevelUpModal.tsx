@@ -1,10 +1,10 @@
 import { motion } from "framer-motion"
 
-import { useProvider } from '../contexts/ChallengesContext';
+import { useChallenges } from '../hooks/useChallenges';
 import { Overlay, Container } from '../styles/components/LevelUpModal'
 
 export default function LevelUpModal()  {
-  const { level, closeLevelUpModal } = useProvider();
+  const { level, closeLevelUpModal } = useChallenges();
 
   return (
     <Overlay>

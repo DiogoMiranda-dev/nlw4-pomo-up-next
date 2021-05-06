@@ -1,12 +1,12 @@
 import React from 'react'
 import { motion } from "framer-motion"
 
-import { useProvider } from '../contexts/ChallengesContext'
+import { useChallenges } from '../hooks/useChallenges'
 
 import { Container } from '../styles/components/ExperienceBar'
 
 export const ExperienceBar: React.FC = () => {
-  const { currentExperience, experienceToNextLevel } = useProvider();
+  const { currentExperience, experienceToNextLevel } = useChallenges();
 
   const percentToNextLevel = Math.round(currentExperience * 100) / experienceToNextLevel;
 

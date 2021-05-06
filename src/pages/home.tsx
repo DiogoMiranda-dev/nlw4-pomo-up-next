@@ -54,38 +54,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {},
   };
-  /* const { user } = await ctx.req.cookies;
-  if (!user) {
-    const userFormatted = JSON.parse(user);
-    return {
-      props: {
-        user,
-      },
-    };
-  } else {
-    return {
-      props: {},
-    };
-  } */
-  /*   if (!user) {
-    if(typeof window === 'undefined'){
-      ctx.res.writeHead(302, { Location: '/' })
-      ctx.res.end()
-    }else{
-      Router.push('/')
-    }
-    return {
-      props: {}
-    }
-  }else{
-    const userFormatted = JSON.parse(user)
-     
-    return {
-      props: {
-        ...userFormatted
-      }
-    }
-  }; */
 };
 
 export default Home;

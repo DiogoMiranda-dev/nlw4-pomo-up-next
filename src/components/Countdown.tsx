@@ -1,4 +1,4 @@
-import { useCountDown } from '../contexts/CountDownContext';
+import { useCountdown } from '../hooks/useCountdown';
 import { CountDownContainer, CountDownButton, StopCountDownButton, FinishedCountDownButton } from '../styles/components/CountDown'
 
 export const CountDown: React.FC = () => {
@@ -9,7 +9,7 @@ export const CountDown: React.FC = () => {
     resetCountDown,
     seconds,
     startCountDown
-  } = useCountDown();
+  } = useCountdown();
 
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('');
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');

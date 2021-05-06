@@ -5,10 +5,26 @@ import { SideBar } from '../components/SideBar'
 import { Loading } from '../components/Loading'
 import { Container } from '../styles/pages/leaderboard'
 
+interface users { 
+  avatar_url: string,
+  name:string,
+  level: number,
+  challengesCompleted: number,
+  currentExperience: number,
+}
+
+const listUsers:users = {
+    avatar_url: 'https://avatars.githubusercontent.com/u/29265016?v=4',
+    name:'Diogo de Souza Miranda',
+    level: 10,
+    challengesCompleted: 4,
+    currentExperience: 1000
+  }
+
 const Leaderboard: React.FC = () => {
 
   const [ loading , setLoading] = useState(false);
-  const [ users , setUsers] = useState([]);
+  const [ users , setUsers] = useState<users[]>([listUsers]);
 
   return (
     <Container>
@@ -18,7 +34,7 @@ const Leaderboard: React.FC = () => {
       <SideBar />
       <section>
         <h2>
-          Leaderboard
+          Entre os melhores
         </h2>
 
         {loading ? <Loading /> : (

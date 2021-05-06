@@ -20,7 +20,9 @@ const Index: React.FC = () => {
 
   async function handleUsername(e){
     e.preventDefault();
-    Router.push('/home')
+    if(username){
+      Router.push('/home')
+    }
   }
 
   return (
@@ -60,21 +62,6 @@ const Index: React.FC = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-/*   const {user} =  await ctx.req.cookies;
-
-  if (user) {
-    if(typeof window === 'undefined'){
-      ctx.res.writeHead(302, { Location: '/home' })
-      ctx.res.end()
-    }else{
-      Router.push('/home')
-    }
-    return { props: {} }
-    return { props: {user} }
-  }else{
-    return { props: {} }
-  }; */
   return { props: {} }
 }
-
 export default Index;

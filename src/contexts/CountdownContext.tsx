@@ -1,5 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { useProvider } from './ChallengesContext';
+import { ReactNode, createContext,useEffect, useState } from 'react';
+import { useChallenges } from '../hooks/useChallenges';
+
+interface CountdownProviderProps {
+  children: ReactNode;
+}
 
 interface CountDownContextData {
   minutes:number,
@@ -14,8 +18,8 @@ export const CountDownContext = createContext({} as CountDownContextData);
 
 let countdownTimeout: NodeJS.Timeout;
 
-export const CountDownProvider: React.FC = ({ children }) => { 
-  const { startNewChallenge } = useProvider();
+export const CountDownProvider: React.FC = ({ children } : CountdownProviderProps) => { 
+  const { startNewChallenge } = useChallenges();
 
   const [ time, setTime ] = useState(.05 * 60);
   const [ isActive, setIsActive ] = useState(false);
@@ -23,6 +27,14 @@ export const CountDownProvider: React.FC = ({ children }) => {
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
+
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      if (isActive) {
+        return 'Você perderá o progresso do countdown até aqui, tem certeza?'
+      }
+    };
+  }, [isActive])
 
   useEffect(() => {
     if(isActive && time > 0){
@@ -60,9 +72,3 @@ export const CountDownProvider: React.FC = ({ children }) => {
     </CountDownContext.Provider>
   );
 };
-
-export function useCountDown(): CountDownContextData {
-  const context = useContext(CountDownContext);
-
-  return context;
-}

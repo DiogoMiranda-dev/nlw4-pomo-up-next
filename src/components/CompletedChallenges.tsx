@@ -1,9 +1,9 @@
-import { useProvider } from '../contexts/ChallengesContext'
+import { useChallenges } from '../hooks/useChallenges'
 import { Container } from '../styles/components/CompletedChallenges'
 
 export const CompletedChallenges: React.FC = () => {
 
-  const { challengesCompleted } = useProvider();
+  const { challengesCompleted } = useChallenges();
 
   return (
     <Container>
