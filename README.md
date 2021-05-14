@@ -152,10 +152,10 @@ Para clonar e executar este aplicativo, você precisará de [Git](https://git-sc
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/DiogoMiranda-dev/ignite-chapter1-fundamentos-react.git
+$ git clone https://github.com/DiogoMiranda-dev/nlw4-pomo-up-next.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd ignite-chapter1-fundamentos-react
+$ cd nlw4-pomo-up-next
 ```
 
 ### 🎲 Rodando a Aplicação
