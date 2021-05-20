@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { CountDownContext } from "../contexts/CountDownContext"
+import { CountDownContext } from "../contexts/CountdownContext"
 
 export function useCountdown() {
   const context = useContext(CountDownContext)
