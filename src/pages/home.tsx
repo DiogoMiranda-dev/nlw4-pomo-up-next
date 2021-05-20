@@ -6,10 +6,10 @@ import { ExperienceBar } from '../components/ExperienceBar';
 import { SideBar } from '../components/SideBar';
 import Profile from '../components/Profile';
 import { CompletedChallenges } from '../components/CompletedChallenges';
-import { CountDown } from '../components/CountDown';
+import { CountDown } from '../components/Countdown';
 
 import { ChallengeBox } from '../components/ChallengeBox';
-import { CountDownProvider } from '../contexts/CountDownContext';
+import { CountDownProvider } from '../contexts/CountdownContext';
 import { ChallengesProvider } from '../contexts/ChallengesContext';
 
 import { Container, LeftSide, RightSide } from '../styles/pages/home';
